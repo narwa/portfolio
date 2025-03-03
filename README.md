@@ -34,8 +34,13 @@ A responsive personal portfolio website showcasing skills, experience, and proje
 4. Run the following commands:
 
 ```bash
+# Using npm
 npm install
 npm start
+
+# OR using pnpm
+pnpm install
+pnpm start
 ```
 
 5. Open your browser and go to `http://localhost:3000`
@@ -73,6 +78,22 @@ docker run -p 3000:3000 narwanto-portfolio
 ```
 
 6. Open your browser and go to `http://localhost:3000`
+
+### Docker Build Process
+
+The Docker build process uses a multi-stage build approach:
+
+1. **Build Stage**:
+   - Uses Node.js 18 Alpine as the base image
+   - Installs pnpm package manager
+   - Installs dependencies using pnpm
+   - Copies only the necessary files for the application
+
+2. **Production Stage**:
+   - Uses a fresh Node.js 18 Alpine image
+   - Copies only the built files from the build stage
+   - Installs only production dependencies
+   - Sets up the environment for running the application
 
 ## Customization
 

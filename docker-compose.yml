@@ -5,10 +5,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
     container_name: narwanto-portfolio
     ports:
       - "3000:3000"
     restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - EMAIL_USER=narwantomail@gmail.com
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+    # In production, you might want to remove these volumes
+    # They're useful for development to see changes without rebuilding
     volumes:
-      - ./:/app
-      - /app/node_modules
+      - ./index.html:/app/index.html
+      - ./404.html:/app/404.html
+      - ./css:/app/css
+      - ./js:/app/js
+      - ./img:/app/img
+      # Uncomment the line below if you want to use a local config file instead of environment variables
+      # - ./config.js:/app/config.js

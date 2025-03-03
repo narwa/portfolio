@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "echo 'Static site, no build step required'",
+    "build": "mkdir -p public && cp -r index.html 404.html robots.txt sitemap.xml manifest.json css js img Curriculum_Vitae_And_Resume_Narwanto_Classic.pdf public/",
     "pnpm:install": "pnpm install"
   },
   "keywords": [

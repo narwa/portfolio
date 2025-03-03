@@ -51,6 +51,8 @@ const MIME_TYPES = {
     '.jpeg': 'image/jpeg',
     '.gif': 'image/gif',
     '.svg': 'image/svg+xml',
+    '.xml': 'application/xml',
+    '.txt': 'text/plain',
     '.ico': 'image/x-icon',
     '.pdf': 'application/pdf',
     '.txt': 'text/plain'
@@ -131,10 +133,13 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Determine the root directory based on environment
+    const rootDir = process.env.NODE_ENV === 'production' ? path.join(__dirname, 'public') : __dirname;
+    
     // Handle the root URL
     let filePath = req.url === '/' 
-        ? path.join(__dirname, 'index.html')
-        : path.join(__dirname, req.url);
+        ? path.join(rootDir, 'index.html')
+        : path.join(rootDir, req.url);
 
     // Get the file extension
     const extname = path.extname(filePath);
@@ -145,7 +150,7 @@ const server = http.createServer((req, res) => {
         if (err) {
             if (err.code === 'ENOENT') {
                 // Page not found
-                fs.readFile(path.join(__dirname, '404.html'), (err, content) => {
+                fs.readFile(path.join(rootDir, '404.html'), (err, content) => {
                     if (err) {
                         res.writeHead(404, { 'Content-Type': 'text/html' });
                         res.end('<h1>404 Not Found</h1>');
